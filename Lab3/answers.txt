@@ -1,0 +1,69 @@
+Running the slow program
+------------------------
+
+Q: What is the complexity of findSimilarity?
+Answer in terms of N, the total number of 5-grams in the input files.
+Assume that the number of 5-grams that occur in more than one file is a small
+constant - that is, there is not much plagiarised text.
+
+A: We assume that the average number of n-grams in all files is K.
+For every pair of n-grams, we need to examine K² combinations of n-grams.
+The number of files is D. The number total number of n-grams is D * K² . 
+Due to the number of files being a much lower number then the number of n-grams
+per file, we estimate that the significant time constraint does not change much
+based on the number of files. Therefore we conclude that the complexity should 
+be quadratic, K².
+
+Q: How long did the program take on the 'small' and 'medium' directories?
+Is the ratio between the times what you would expect, given the complexity?
+Explain very briefly why.
+
+A: 
+Small: 2.8s
+Medium: 434s
+Given the number of n-grams has changed by a factor of 10. Given our assumtion 
+about the complexity we would expect a time increase of 100 which is what we observe.
+Assuming that this conclusion is correct it seams that the number of files, which increased a significant
+amount, did not have a noticable inpact on the performance. This reaffirmes our belief
+that the order of growth is primarily based on the number of n-grams.
+
+
+Q: How long do you predict the program would take to run on the 'huge'
+directory?
+
+A: The number of n-grams has increased by a factor of 20. Therefore the time should
+increase by a factor of 400 leading to a time of around 200 000s. 
+
+Using binary search trees
+-------------------------
+
+Q: Which of the trees usually become unbalanced?
+
+A: The file tree usually becomes unbalanced. It's height is often size - 1. This implies that the 
+tree is only one long chain, which is very unbalanced. We do not know how severly unbalanced 
+the other trees are. We seem to find that they are reasonably balanced and therefore do not 
+know how to improve them in a simple way.
+
+Q (optional): Is there a simple way to stop these trees becoming unbalanced?
+
+A (optional):  Files seams to be read in a ordered format. If you scrable the order of the files the performance
+would improve. 
+
+
+Using scapegoat trees
+---------------------
+
+Q: Now what is the total complexity of buildIndex and findSimilarity?
+Again, assume a total of N 5-grams, and a constant number of 5-grams that
+occur in more than one file.
+
+A:
+
+Q (optional): What if the total similarity score is an arbitrary number S,
+rather than a small constant?
+
+A (optional):
+
+Q (optional): Did you find any text that was clearly copied?
+
+A (optional):
