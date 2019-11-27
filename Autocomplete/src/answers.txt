@@ -1,0 +1,98 @@
+/******************************************************************************
+ *  DAT038, TDA417  Datastrukturer och algoritmer, LP2 2019
+ *  Lab 2: Autocomplete
+ ******************************************************************************/
+
+Name of lab group: [Group 128]
+Group member A:    [Alexander Ohlin]
+Group member B:    [Carl Holmberg]
+
+
+/******************************************************************************
+ *  How many hours did you spend on the assignment?
+ *****************************************************************************/
+
+Group member A:    [3.5]
+Group member B:    [3.5]
+
+
+/******************************************************************************
+ *  Describe how your firstIndexOf() method in RangeBinarySearch.java
+ *  finds the first index of a key that equals the search key.
+ *****************************************************************************/
+We first do a binary search to find one match. We then partition the array below (above in lastIndexOf) 
+and assign hi to mid. We then continue binary searching until hi and lo are next to each other
+meaning we have found the first key.
+
+
+
+/******************************************************************************
+ *  What is the worst case time complexity in the number of compares
+ *  that each of the operations in the Autocomplete data type make,
+ *  as a function of the number of terms n and the number of matching terms m?
+ *
+ *  You can answer in O() notation, or in order-of-growth notation.
+ *  Recall that in both notations you should discard leading coefficients
+ *  and lower-order terms, e.g., m^2 + m log n.
+ *****************************************************************************/
+
+constructor:  [O(n lg n)]
+
+We sort out input array.
+Timsort used by Arrays.sort for non primitive arrays has a worst case time complexity of O(n lg n).
+
+
+allMatches():   [O(lg n + m lg m)]
+
+Finding the upper and lower bounds of matches uses binary search with a complexity of 
+ln n in worst case. The worst case for matching elements is that all elements match the key, 
+where all elements transfered to the output array and sorted via Arrays.Sort by weight (Complexity: O(m lg m))
+
+
+numberOfMatches():   [O(lg n)]
+
+Two binary searches resulting in ln n complexity.
+
+
+
+/******************************************************************************
+ *  Are there any known bugs / limitations?
+ *****************************************************************************/
+We have not found any bugs or limitations yet that we didn't solve.
+We have done some imperical tests on different keys and compared with regex searching 
+in the text file. We have not found any unresolved bugs.
+
+
+
+/******************************************************************************
+ *  Did you collaborate with any other students on this lab?
+ *  If so, please write in what way you collaborated and with whom.
+ *  Also include any resources (including the web) that you may
+ *  may have used in creating your design.
+ *****************************************************************************/
+We compared results with another groups and concluded that our implementation was slow.
+We then improved the number of compares we needed to do. Group 95 was the group we compared to.
+They also helped us debug a bug and we then found that they had the same bug and helped
+them fix it aswell.
+
+
+
+/******************************************************************************
+ *  Describe any serious problems you encountered.
+ *****************************************************************************/
+We encountered a bug where we stopped getting all search results. Searching "Göte" in
+cities.txt resulted in only one match after the improvements. Before the improvements
+it resulted in two matches. We first changed mid in binary search and then checked if we were done.
+We reversed this order and the problem fixed itself. We also needed to ciel mid when searching for last index.
+
+
+
+/******************************************************************************
+ *  List any other comments here. Feel free to provide any feedback
+ *  on how much you learned from doing the assignment, and whether
+ *  you enjoyed doing it.
+ *****************************************************************************/
+It was fun and we were surprised that it worked as fast as it did. Very cool.
+
+
+
