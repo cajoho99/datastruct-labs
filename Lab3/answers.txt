@@ -57,13 +57,37 @@ Q: Now what is the total complexity of buildIndex and findSimilarity?
 Again, assume a total of N 5-grams, and a constant number of 5-grams that
 occur in more than one file.
 
-A:
+A: 
+Files: D 
+All 5-Grams in one file: K
+
+For buildIndex we analyze every file and with every 5-gram in it. We loop through every 5-gram once and add the
+path either to an existing 5-gram in the index or add a new list of path for that 5-gram. This leads to the complexity 
+being D*K which is approximately linear due to the low number of files compared to the 5-grams. But we also need
+to keep in mind that we are populating a scapegoat tree where the time to add N elements takes N lg N time. 
+As such, total complexity for buildIndex is D*K lg (D*K) which is linearthmethic. 
+
+Total number of unique 5-grams: N
+
+For the findSimilarity method we loop though every 5-gram found when we call buildIndex. We then check if
+there is more than one file that has this 5-gram in it. If such is the case, for every possible pair of these files, 
+excuding order ( a,b == b,a ), we create a PathPair. We either add this pair to similarity if it is new or we increment 
+this pair if it already exists. Because we loop though every 5-gram the total number of pairs that we create is 
+very small compared to the number of 5-grams. Therefore when determening complexity we exclude file 
+combinations and determine the complexity to be linear N. Also since we are only using a scapegoat tree for 
+file pairs and we are ignoring those for findSimilarity, the usage of scapegoat trees does not inpact the complexity 
+in a meaningful way.
+
+Therefore the total complexity for buildIndex and findSimilarity is: D*K lg (D*K) + N which computes to linearthmethic 
+as that is the highest complexity.
 
 Q (optional): What if the total similarity score is an arbitrary number S,
 rather than a small constant?
 
-A (optional):
+A (optional): If S a large number that means that we need to create more path pairs. This means we path pairs in account 
+when calculating complexity for findSimilarity. Worst case all files are equal leading to a pair needing to be created between 
+every file. This gives findSimilarity the complexity of N*S². 
 
 Q (optional): Did you find any text that was clearly copied?
 
-A (optional):
+A (optional): 
