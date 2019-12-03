@@ -124,13 +124,23 @@ public class ScapegoatTree<Key extends Comparable<Key>, Value> {
         // Read the lab instructions for more hints!
         if (cmp < 0) {
             // key is less than node.key
+            node.left = put(node.left, key, val);
         } else if (cmp > 0) {
             // key is greater than node.key
+            node.right = put(node.right, key, val);
         } else {
             // key is equal to node.key
+            node.val = val;
         }
 
-        throw new UnsupportedOperationException();
+        node.size = 1 + size(node.left) + size(node.right);
+        node.height = 1 + Math.max(height(node.left), height(node.right));
+
+        if(node.height > (alpha * log2(node.size))){
+            node = rebuild(node);
+        }
+
+        return node;
     }
 
 	// Rebuild a tree to make it perfectly balanced.
@@ -146,7 +156,14 @@ public class ScapegoatTree<Key extends Comparable<Key>, Value> {
     private void inorder(Node node, ArrayList<Node> nodes) {
         // TO DO: use in-order traversal to store 'node' and all
         // descendants into 'nodes' ArrayList
-        throw new UnsupportedOperationException();
+
+        if(node.left != null){
+            inorder(node.left, nodes);
+        }
+        nodes.add(node);
+        if(node.right != null){
+            inorder(node.right, nodes);
+        }
     }
 
 	// Convert an array of nodes into a balanced BST.
