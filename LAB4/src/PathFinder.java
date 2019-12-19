@@ -52,9 +52,12 @@ public class PathFinder<V> {
     public Result<V> search(String algorithm, V start, V goal) {
         startTimeMillis = System.currentTimeMillis();
         switch (algorithm) {
-        case "random":   return searchRandom(start, goal);
-        case "dijkstra": return searchDijkstra(start, goal);
-        case "astar":    return searchAstar(start, goal);
+            case "random":
+                return searchRandom(start, goal);
+            case "dijkstra":
+                return searchDijkstra(start, goal);
+            case "astar":
+                return searchAstar(start, goal);
         }
         throw new IllegalArgumentException("Unknown search algorithm: " + algorithm);
     }
@@ -89,69 +92,145 @@ public class PathFinder<V> {
 
 
     public Result<V> searchDijkstra(V start, V goal) {
-        int visitedNodes = 0;
-        HashMap<V, Double> distTo = new HashMap<>();
         HashMap<V, DirectedEdge<V>> edgeTo = new HashMap<>();
-        PriorityQueue<V> pq = new PriorityQueue<V>();
+        HashMap<V, Double> distTo = new HashMap<>();
+        Set<V> visited = new HashSet<>();
+        int visitedNodes = 0;
+
+
+        Comparator<V> comparator = Comparator.comparing(distTo::get);
+
+        PriorityQueue<V> pq = new PriorityQueue<>(comparator);
 
         // Assume all edges are of positive value
 
         pq.add(start);
         distTo.put(start, 0.0);
 
-        while(!pq.isEmpty()){
+        while (!pq.isEmpty()) {
             V v = pq.poll();
             visitedNodes++;
 
-            if(v.equals(goal)){
 
-                V current = v;
-                Stack<V> stack = new Stack<>();
-                stack.add(current);
+            if (!visited.contains(v)) {
+                visited.add(v);
 
-                while(!current.equals(start)){
-                    current = edgeTo.get(current).from();
-                    stack.push(current);
+                if (v.equals(goal)) {
+                    Stack<V> s = new Stack<>();
+
+                    for (V current = v; edgeTo.get(current) != null; s.push(current)) {
+                        current = edgeTo.get(current).from();
+                    }
+
+                    List<V> path = new ArrayList<>();
+
+                    for (V current; !s.empty(); path.add(current)) {
+                        current = s.pop();
+                    }
+
+                    return new Result<>(true, start, v, distTo.get(v), path, visitedNodes);
                 }
 
-                List<V> path = new ArrayList<>();
+                List<DirectedEdge<V>> outgoingEdges = graph.outgoingEdges(v);
 
-                while(!stack.isEmpty())
-                    path.add(stack.pop());
+                for (DirectedEdge<V> e : outgoingEdges) {
+                    V w = e.to();
+
+                    if (!distTo.containsKey(w)) {
+                        distTo.put(w, Double.MAX_VALUE);
+                    }
+
+                    double newDist = distTo.get(v) + e.weight();
 
 
-                return new Result<>(true, start, v, distTo.get(v), path, visitedNodes);
+                    if (distTo.get(w) > newDist) {
+                        distTo.put(w, newDist);
+                        edgeTo.put(w, e);
+                        pq.add(w);
+                    }
+                }
             }
 
-            graph.outgoingEdges(v).forEach(edge -> {
-                V from = edge.from(), to = edge.to();
-
-                if(!distTo.containsKey(to)){
-                    distTo.put(to, Double.MAX_VALUE);
-                }
-
-                if(distTo.get(to) > distTo.get(from) + edge.weight()){
-                    distTo.put(to, distTo.get(from) + edge.weight());
-                    edgeTo.put(to, edge);
-                    pq.add(to);
-                }
-            });
 
         }
 
-        /********************
-         * TODO: Task 1 
-         ********************/
         return new Result<>(false, start, null, -1, null, visitedNodes);
     }
 
 
-
     public Result<V> searchAstar(V start, V goal) {
+        HashMap<V, DirectedEdge<V>> edgeTo = new HashMap<>();
+        HashMap<V, Double> distTo = new HashMap<>();
+        HashMap<V, Double> heuristicTo = new HashMap<>();
+        Set<V> visited = new HashSet<>();
         int visitedNodes = 0;
-        /********************
-         * TODO: Task 3
-         ********************/
+
+
+        Comparator<V> comparator = Comparator.comparing(heuristicTo::get);
+
+        PriorityQueue<V> pq = new PriorityQueue<>(comparator);
+
+        // Assume all edges are of positive value
+
+        pq.add(start);
+        distTo.put(start, 0.0);
+        heuristicTo.put(start, graph.guessCost(start, goal));
+
+
+        while (!pq.isEmpty()) {
+            V v = pq.poll();
+            visitedNodes++;
+
+
+            if (v.equals(goal)) {
+                Stack<V> s = new Stack<>();
+
+                for (V current = v; edgeTo.get(current) != null; s.push(current)) {
+                    current = edgeTo.get(current).from();
+                }
+
+                List<V> path = new ArrayList<>();
+
+                for (V current; !s.empty(); path.add(current)) {
+                    current = s.pop();
+                }
+
+                return new Result<>(true, start, v, distTo.get(v), path, visitedNodes);
+            }
+
+            if (!visited.contains(v)) {
+                visited.add(v);
+
+
+                List<DirectedEdge<V>> outgoingEdges = graph.outgoingEdges(v);
+
+                for (DirectedEdge<V> e : outgoingEdges) {
+                    V w = e.to();
+
+
+                    if (!distTo.containsKey(w)) {
+                        distTo.put(w, Double.MAX_VALUE);
+                    }
+
+                    if(!heuristicTo.containsKey(w)){
+                        heuristicTo.put(w, Double.MAX_VALUE);
+                    }
+
+                    double newDist = distTo.get(v) + e.weight();
+                    if(newDist < distTo.get(w)){
+                        edgeTo.put(w, e);
+                        distTo.put(w, newDist);
+                        heuristicTo.put(w, distTo.get(w) + graph.guessCost(w, goal));
+                        if(!pq.contains(w)){
+                            pq.add(w);
+                        }
+                    }
+                }
+            }
+
+
+        }
+
         return new Result<>(false, start, null, -1, null, visitedNodes);
     }
 

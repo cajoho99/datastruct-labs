@@ -1,8 +1,5 @@
 
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 import java.util.stream.Collectors;
 
@@ -28,15 +25,16 @@ public class WordLadder implements DirectedGraph<String> {
         dictionary = new HashSet<>();
         charset = new HashSet<>();
         Files.lines(Paths.get(file))
-            .filter(line -> !line.startsWith("#"))
-            .forEach(word -> addWord(word.trim()));
+                .filter(line -> !line.startsWith("#"))
+                .forEach(word -> addWord(word.trim()));
     }
 
 
     /**
      * Adds the {@code word} to the dictionary, if it only contains letters.
      * The word is converted to lowercase.
-     * @param word  the word
+     *
+     * @param word the word
      */
     public void addWord(String word) {
         // 
@@ -59,14 +57,26 @@ public class WordLadder implements DirectedGraph<String> {
 
 
     /**
-     * @param  word  a graph node
+     * @param word a graph node
      * @return the edges incident on node {@code word} as a List
      */
     public List<DirectedEdge<String>> outgoingEdges(String word) {
-        /********************
-         * TODO: Task 2
-         ********************/
-        return new LinkedList<>();
+
+        List<DirectedEdge<String>> path = new LinkedList<>();
+
+
+        for (int i = 0; i < word.length(); i++) {
+            StringBuilder temp = new StringBuilder(word);
+            for (Character c : charset) {
+                temp.replace(i, i + 1, Character.toString(c));
+                String changed = temp.toString();
+                if (!changed.equals(word) && dictionary.contains(changed)) {
+                    path.add(new DirectedEdge<>(word, changed));
+                }
+            }
+        }
+
+        return path;
     }
 
 
@@ -84,7 +94,7 @@ public class WordLadder implements DirectedGraph<String> {
     public String toString() {
         StringBuilder s = new StringBuilder();
         s.append("Word ladder with " + nrNodes() + " words, " +
-                 "charset: \"" + charset.stream().map(x -> x.toString()).collect(Collectors.joining()) + "\"\n\n");
+                "charset: \"" + charset.stream().map(x -> x.toString()).collect(Collectors.joining()) + "\"\n\n");
         int ctr = 0;
         s.append("Example words and ladder steps:\n");
         for (String v : dictionary) {
@@ -100,7 +110,8 @@ public class WordLadder implements DirectedGraph<String> {
 
     /**
      * Unit tests the class
-     * @param args  the command-line arguments
+     *
+     * @param args the command-line arguments
      */
     public static void main(String[] args) {
         try {
