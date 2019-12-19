@@ -6,13 +6,12 @@ Answer in terms of N, the total number of 5-grams in the input files.
 Assume that the number of 5-grams that occur in more than one file is a small
 constant - that is, there is not much plagiarised text.
 
-A: We assume that the average number of n-grams in all files is K.
-For every pair of n-grams, we need to examine K² combinations of n-grams.
-The number of files is D. The number total number of n-grams is D * K² . 
-Due to the number of files being a much lower number then the number of n-grams
-per file, we estimate that the significant time constraint does not change much
-based on the number of files. Therefore we conclude that the complexity should 
-be quadratic, K².
+A: 
+The amount of files is D which gets compared to (D-1) other files with an average
+number K n-grams in each file. For every n-gram we also need to compare it to every other n-gram. 
+This leads to: D*(D-1)*K² = (D² - D)*K² = D²*K² - D*K². Knowing that N = D*K, and disregarding any 
+lower terms of complexity we find that the complexity for findSimilarity is N^2.
+
 
 Q: How long did the program take on the 'small' and 'medium' directories?
 Is the ratio between the times what you would expect, given the complexity?
@@ -63,22 +62,22 @@ All 5-Grams in one file: K
 
 For buildIndex we analyze every file and with every 5-gram in it. We loop through every 5-gram once and add the
 path either to an existing 5-gram in the index or add a new list of path for that 5-gram. This leads to the complexity 
-being D*K which is approximately linear due to the low number of files compared to the 5-grams. But we also need
+being N which is approximately linear due to the low number of files compared to the 5-grams. But we also need
 to keep in mind that we are populating a scapegoat tree where the time to add N elements takes N lg N time. 
-As such, total complexity for buildIndex is D*K lg (D*K) which is linearthmethic. 
+As such, total complexity for buildIndex is N lg N, which is linearthmethic. 
 
-Total number of unique 5-grams: N
+Total number of unique 5-grams: P
 
 For the findSimilarity method we loop though every 5-gram found when we call buildIndex. We then check if
 there is more than one file that has this 5-gram in it. If such is the case, for every possible pair of these files, 
 excuding order ( a,b == b,a ), we create a PathPair. We either add this pair to similarity if it is new or we increment 
 this pair if it already exists. Because we loop though every 5-gram the total number of pairs that we create is 
 very small compared to the number of 5-grams. Therefore when determening complexity we exclude file 
-combinations and determine the complexity to be linear N. Also since we are only using a scapegoat tree for 
+combinations and determine the complexity to be linear P. Also since we are only using a scapegoat tree for 
 file pairs and we are ignoring those for findSimilarity, the usage of scapegoat trees does not inpact the complexity 
 in a meaningful way.
 
-Therefore the total complexity for buildIndex and findSimilarity is: D*K lg (D*K) + N which computes to linearthmethic 
+Therefore the total complexity for buildIndex and findSimilarity is: N lg N which computes to linearthmethic 
 as that is the highest complexity.
 
 Q (optional): What if the total similarity score is an arbitrary number S,
