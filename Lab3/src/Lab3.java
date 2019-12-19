@@ -51,7 +51,7 @@ public class Lab3 {
 
             // Print out the plagiarism report!
             System.out.println("Plagiarism report:");
-            for (PathPair pair: mostSimilar)
+            for (PathPair pair : mostSimilar)
                 System.out.printf("%5d similarity: %s\n", similarity.get(pair), pair);
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class Lab3 {
     // Phase 1: Read in each file and chop it into n-grams.
     static ScapegoatTree<Path, Ngram[]> readPaths(Path[] paths) throws IOException {
         ScapegoatTree<Path, Ngram[]> files = new ScapegoatTree<>();
-        for (Path path: paths) {
+        for (Path path : paths) {
             String contents = new String(Files.readAllBytes(path));
             Ngram[] ngrams = Ngram.ngrams(contents, 5);
             // Remove duplicates from the ngrams list
@@ -81,15 +81,12 @@ public class Lab3 {
     static ScapegoatTree<Ngram, ArrayList<Path>> buildIndex(ScapegoatTree<Path, Ngram[]> files) {
         ScapegoatTree<Ngram, ArrayList<Path>> index = new ScapegoatTree<>();
 
-        files.keys().forEach(key ->{
-            int length = files.get(key).length;
+        files.keys().forEach(key -> {
 
-            for(int i = 0; i < length; i++){
-                Ngram current = files.get(key)[i];
-                if(index.contains(current)){
+            for (Ngram current : files.get(key)) {
+                if (index.contains(current)) {
                     index.get(current).add(key);
-                }
-                else{
+                } else {
                     ArrayList<Path> paths = new ArrayList<>();
                     paths.add(key);
                     index.put(current, paths);
@@ -111,21 +108,21 @@ public class Lab3 {
             List<Path> paths = index.get(key);
             int size = paths.size();
 
-            if(size > 1){
-                for(int i = 0; i < size; i++){
-                    for(int j = i + 1; j < size; j++){
-                        // PathPair needs to be put in correct order
-                        PathPair pair = new PathPair(paths.get(j), paths.get(i));
-                        if(similarity.contains(pair))
-                            similarity.put(pair, similarity.get(pair) + 1);
-                        else{
-                            similarity.put(pair, 1);
-                        }
 
+            for (int i = 0; i < size; i++) {
+                for (int j = i + 1; j < size; j++) {
+                    // PathPair needs to be put in correct order
+                    PathPair pair = new PathPair(paths.get(j), paths.get(i));
+                    if (similarity.contains(pair))
+                        similarity.put(pair, similarity.get(pair) + 1);
+                    else {
+                        similarity.put(pair, 1);
                     }
+
                 }
             }
         }
+
 
         return similarity;
     }
@@ -135,7 +132,7 @@ public class Lab3 {
     static ArrayList<PathPair> findMostSimilar(ScapegoatTree<PathPair, Integer> similarity) {
         // Find all pairs of files with more than 100 n-grams in common.
         ArrayList<PathPair> mostSimilar = new ArrayList<>();
-        for (PathPair pair: similarity.keys()) {
+        for (PathPair pair : similarity.keys()) {
             if (similarity.get(pair) < 30) continue;
             // Only consider each pair of files once - (a, b) and not
             // (b,a) - and also skip pairs consisting of the same file twice
