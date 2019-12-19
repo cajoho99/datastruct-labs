@@ -97,6 +97,7 @@ public class PathFinder<V> {
         // Assume all edges are of positive value
 
         pq.add(start);
+        distTo.put(start, 0.0);
 
         while(!pq.isEmpty()){
             V v = pq.poll();
@@ -105,13 +106,19 @@ public class PathFinder<V> {
             if(v.equals(goal)){
 
                 V current = v;
-                List<V> path = new ArrayList<>();
-                path.add(current);
+                Stack<V> stack = new Stack<>();
+                stack.add(current);
 
                 while(!current.equals(start)){
                     current = edgeTo.get(current).from();
-                    path.add(current);
+                    stack.push(current);
                 }
+
+                List<V> path = new ArrayList<>();
+
+                while(!stack.isEmpty())
+                    path.add(stack.pop());
+
 
                 return new Result<>(true, start, v, distTo.get(v), path, visitedNodes);
             }

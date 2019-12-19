@@ -157,13 +157,12 @@ public class ScapegoatTree<Key extends Comparable<Key>, Value> {
         // TO DO: use in-order traversal to store 'node' and all
         // descendants into 'nodes' ArrayList
 
-        if(node.left != null){
-            inorder(node.left, nodes);
-        }
+        if(node == null)
+            return;
+
+        inorder(node.left, nodes);
         nodes.add(node);
-        if(node.right != null){
-            inorder(node.right, nodes);
-        }
+        inorder(node.right, nodes);
     }
 
 	// Convert an array of nodes into a balanced BST.
