@@ -120,7 +120,7 @@ public class PathFinder<V> {
                     path.add(stack.pop());
 
 
-                return new Result<>(true, start, v, distTo.get(v), stack, visitedNodes);
+                return new Result<>(true, start, v, distTo.get(v), path, visitedNodes);
             }
 
             graph.outgoingEdges(v).forEach(edge -> {
