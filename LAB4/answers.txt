@@ -1,0 +1,214 @@
+
+
+/******************************************************************************
+ *  DAT038, TDA417  Datastrukturer och algoritmer, LP2 2019
+ *  Lab 4: Path finder
+ ******************************************************************************/
+
+Name of lab group: 128
+Group member A:    Alexander Ohlin
+Group member B:    Carl Holmberg
+
+
+/******************************************************************************
+ *  How many hours did you spend on the assignment?
+ *****************************************************************************/
+
+Group member A:    6.5
+Group member B:    6.5
+
+
+/******************************************************************************
+ *  List the minimal cost, shortest path, and nr of visited nodes,
+ *  for each of the following invocations.
+ *****************************************************************************/
+
+$ java RunPathFinder dijkstra AdjacencyGraph graphs/AdjacencyGraph/citygraph-EU.txt "Volos, Greece" "Oulu, Finland"
+
+visited nodes: 961
+minimal cost:  3488
+shortest path: Volos, Greece -> Timişoara, Romania -> Arad, Romania -> Oradea, Romania -> Debrecen, Hungary -> Nyíregyháza, Hungary -> Uzhgorod, Ukraine -> Rzeszów, Poland -> Lublin, Poland -> Białystok, Poland -> Tallinn, Estonia -> Helsinki, Finland -> Oulu, Finland
+
+
+$ java RunPathFinder astar AdjacencyGraph graphs/AdjacencyGraph/citygraph-EU.txt "Volos, Greece" "Oulu, Finland"
+
+visited nodes: 961
+minimal cost:  3488
+shortest path: Volos, Greece -> Timişoara, Romania -> Arad, Romania -> Oradea, Romania -> Debrecen, Hungary -> Nyíregyháza, Hungary -> Uzhgorod, Ukraine -> Rzeszów, Poland -> Lublin, Poland -> Białystok, Poland -> Tallinn, Estonia -> Helsinki, Finland -> Oulu, Finland
+
+
+$ java RunPathFinder dijkstra NPuzzle 3 "/HFG/BED/C_A/" "/ABC/DEF/GH_/"
+z
+visited nodes: 181440
+minimal cost:  31
+shortest path: /HFG/BED/C_A/ -> /HFG/BED/CA_/ -> /HFG/BE_/CAD/ -> /HF_/BEG/CAD/ -> /H_F/BEG/CAD/ -> /_HF/BEG/CAD/ -> /BHF/_EG/CAD/ -> /BHF/CEG/_AD/ -> /BHF/CEG/A_D/ -> /BHF/CEG/AD_/ -> /BHF/CE_/ADG/ -> /BHF/C_E/ADG/ -> /BHF/_CE/ADG/ -> /BHF/ACE/_DG/ -> /BHF/ACE/D_G/ -> /BHF/ACE/DG_/ -> /BHF/AC_/DGE/ -> /BHF/A_C/DGE/ -> /B_F/AHC/DGE/ -> /BF_/AHC/DGE/ -> /BFC/AH_/DGE/ -> /BFC/A_H/DGE/ -> /B_C/AFH/DGE/ -> /_BC/AFH/DGE/ -> /ABC/_FH/DGE/ -> /ABC/DFH/_GE/ -> /ABC/DFH/G_E/ -> /ABC/DFH/GE_/ -> /ABC/DF_/GEH/ -> /ABC/D_F/GEH/ -> /ABC/DEF/G_H/ -> /ABC/DEF/GH_/
+
+
+$ java RunPathFinder astar NPuzzle 3 "/HFG/BED/C_A/" "/ABC/DEF/GH_/"
+
+visited nodes: 15860
+minimal cost:  31
+shortest path: /HFG/BED/C_A/ -> /HFG/BED/_CA/ -> /HFG/_ED/BCA/ -> /HFG/E_D/BCA/ -> /H_G/EFD/BCA/ -> /HG_/EFD/BCA/ -> /HGD/EF_/BCA/ -> /HGD/EFA/BC_/ -> /HGD/EFA/B_C/ -> /HGD/E_A/BFC/ -> /H_D/EGA/BFC/ -> /HD_/EGA/BFC/ -> /HDA/EG_/BFC/ -> /HDA/EGC/BF_/ -> /HDA/EGC/B_F/ -> /HDA/E_C/BGF/ -> /HDA/_EC/BGF/ -> /_DA/HEC/BGF/ -> /D_A/HEC/BGF/ -> /DA_/HEC/BGF/ -> /DAC/HE_/BGF/ -> /DAC/H_E/BGF/ -> /DAC/_HE/BGF/ -> /DAC/BHE/_GF/ -> /DAC/BHE/G_F/ -> /DAC/B_E/GHF/ -> /DAC/_BE/GHF/ -> /_AC/DBE/GHF/ -> /A_C/DBE/GHF/ -> /ABC/D_E/GHF/ -> /ABC/DE_/GHF/ -> /ABC/DEF/GH_/
+
+
+$ java RunPathFinder dijkstra NPuzzle 3 "/HGF/BED/C_A/" "/ABC/DEF/GH_/"
+
+visited nodes: 181440
+minimal cost:  No path
+shortest path: No path
+
+$ java RunPathFinder astar NPuzzle 3 "/HGF/BED/C_A/" "/ABC/DEF/GH_/"
+
+visited nodes: 181440
+minimal cost:  No path
+shortest path: No path
+
+$ java RunPathFinder dijkstra GridGraph graphs/GridGraph/AR0011SR.map "23:161" "130:211"
+
+visited nodes: 20813
+minimal cost:  366.4
+shortest path: 23:161 -> 23:160 -> 23:159 -> 23:158 -> 23:157 -> 23:156 -> 23:155 -> 23:154 -> 23:153 -> 23:152 -> 23:151 -> 23:150 -> 23:149 -> 23:148 -> 23:147 -> 23:146 -> 23:145 -> 23:144 -> 23:143 -> 23:142 -> 23:141 -> 23:140 -> 23:139 -> 23:138 -> 23:137 -> 23:136 -> 23:135 -> 23:134 -> 23:133 -> 23:132 -> 23:131 -> 23:130 -> 22:129 -> 22:128 -> 22:127 -> 22:126 -> 22:125 -> 22:124 -> 22:123 -> 22:122 -> 22:121 -> 22:120 -> 22:119 -> 22:118 -> 22:117 -> 22:116 -> 22:115 -> 22:114 -> 22:113 -> 22:112 -> 22:111 -> 22:110 -> 22:109 -> 22:108 -> 21:107 -> 21:106 -> 21:105 -> 21:104 -> 20:103 -> 20:102 -> 20:101 -> 20:100 -> 19:99 -> 19:98 -> 19:97 -> 18:96 -> 17:95 -> 16:94 -> 15:93 -> 14:92 -> 14:91 -> 14:90 -> 14:89 -> 14:88 -> 14:87 -> 14:86 -> 14:85 -> 14:84 -> 14:83 -> 15:82 -> 16:81 -> 17:80 -> 18:79 -> 19:78 -> 20:77 -> 21:76 -> 22:75 -> 23:74 -> 24:73 -> 25:72 -> 26:71 -> 27:70 -> 28:69 -> 29:68 -> 30:67 -> 31:66 -> 32:65 -> 33:64 -> 34:63 -> 35:62 -> 36:61 -> 37:60 -> 38:59 -> 39:59 -> 40:58 -> 41:58 -> 42:58 -> 43:58 -> 44:58 -> 45:59 -> 46:60 -> 47:61 -> 47:62 -> 48:63 -> 48:64 -> 48:65 -> 48:66 -> 48:67 -> 48:68 -> 48:69 -> 48:70 -> 48:71 -> 48:72 -> 48:73 -> 48:74 -> 48:75 -> 48:76 -> 48:77 -> 48:78 -> 48:79 -> 48:80 -> 48:81 -> 48:82 -> 48:83 -> 48:84 -> 48:85 -> 48:86 -> 48:87 -> 48:88 -> 48:89 -> 48:90 -> 48:91 -> 48:92 -> 48:93 -> 48:94 -> 48:95 -> 48:96 -> 48:97 -> 48:98 -> 48:99 -> 48:100 -> 48:101 -> 48:102 -> 48:103 -> 48:104 -> 48:105 -> 49:106 -> 50:107 -> 51:108 -> 52:109 -> 53:110 -> 54:111 -> 55:112 -> 56:113 -> 57:114 -> 58:115 -> 59:116 -> 60:116 -> 61:116 -> 62:116 -> 63:117 -> 64:118 -> 65:119 -> 66:120 -> 67:121 -> 68:122 -> 69:123 -> 70:124 -> 71:125 -> 72:126 -> 73:127 -> 74:128 -> 75:129 -> 76:130 -> 77:131 -> 78:132 -> 79:133 -> 80:134 -> 81:135 -> 82:136 -> 83:137 -> 84:138 -> 85:139 -> 86:140 -> 87:141 -> 88:142 -> 89:143 -> 90:144 -> 91:145 -> 92:146 -> 93:147 -> 94:148 -> 95:149 -> 96:150 -> 97:151 -> 98:152 -> 99:153 -> 100:154 -> 101:155 -> 102:156 -> 103:157 -> 104:157 -> 105:157 -> 106:157 -> 107:157 -> 108:157 -> 109:157 -> 110:157 -> 111:157 -> 112:157 -> 113:157 -> 114:157 -> 115:157 -> 116:157 -> 117:157 -> 118:158 -> 119:159 -> 120:160 -> 121:161 -> 122:162 -> 123:162 -> 124:162 -> 125:163 -> 126:164 -> 127:165 -> 128:165 -> 129:166 -> 130:167 -> 131:168 -> 132:169 -> 133:170 -> 134:171 -> 135:172 -> 136:172 -> 137:172 -> 138:172 -> 139:172 -> 140:172 -> 141:172 -> 142:172 -> 143:172 -> 144:172 -> 145:172 -> 146:172 -> 147:172 -> 148:172 -> 149:172 -> 150:172 -> 151:172 -> 152:172 -> 153:172 -> 154:172 -> 155:172 -> 156:172 -> 157:172 -> 158:171 -> 159:170 -> 160:170 -> 161:171 -> 162:172 -> 162:173 -> 162:174 -> 162:175 -> 161:176 -> 160:177 -> 159:178 -> 158:179 -> 157:180 -> 156:181 -> 155:182 -> 154:183 -> 153:184 -> 152:185 -> 151:186 -> 150:187 -> 149:188 -> 148:189 -> 147:190 -> 146:191 -> 145:192 -> 145:193 -> 145:194 -> 145:195 -> 145:196 -> 144:197 -> 143:198 -> 142:199 -> 141:200 -> 140:201 -> 139:202 -> 138:203 -> 137:204 -> 136:205 -> 135:206 -> 134:207 -> 133:208 -> 132:209 -> 131:210 -> 130:211
+
+$ java RunPathFinder astar GridGraph graphs/GridGraph/AR0011SR.map "23:161" "130:211"
+
+visited nodes: 12761
+minimal cost:  366.4
+shortest path: 23:161 -> 23:160 -> 23:159 -> 23:158 -> 23:157 -> 23:156 -> 23:155 -> 23:154 -> 23:153 -> 23:152 -> 23:151 -> 23:150 -> 23:149 -> 23:148 -> 23:147 -> 23:146 -> 23:145 -> 23:144 -> 23:143 -> 23:142 -> 23:141 -> 23:140 -> 23:139 -> 23:138 -> 23:137 -> 23:136 -> 23:135 -> 23:134 -> 23:133 -> 23:132 -> 23:131 -> 23:130 -> 22:129 -> 22:128 -> 22:127 -> 22:126 -> 22:125 -> 22:124 -> 22:123 -> 22:122 -> 22:121 -> 22:120 -> 22:119 -> 22:118 -> 22:117 -> 22:116 -> 22:115 -> 22:114 -> 22:113 -> 22:112 -> 22:111 -> 22:110 -> 22:109 -> 22:108 -> 21:107 -> 21:106 -> 21:105 -> 21:104 -> 20:103 -> 20:102 -> 20:101 -> 20:100 -> 19:99 -> 19:98 -> 19:97 -> 18:96 -> 17:95 -> 16:94 -> 15:93 -> 14:92 -> 14:91 -> 14:90 -> 14:89 -> 14:88 -> 14:87 -> 14:86 -> 14:85 -> 14:84 -> 14:83 -> 15:82 -> 16:81 -> 17:80 -> 18:79 -> 19:78 -> 20:77 -> 21:76 -> 22:75 -> 23:74 -> 24:73 -> 25:72 -> 26:71 -> 27:70 -> 28:69 -> 29:68 -> 30:67 -> 31:66 -> 32:65 -> 33:64 -> 34:63 -> 35:62 -> 36:61 -> 37:60 -> 38:59 -> 39:59 -> 40:58 -> 41:58 -> 42:58 -> 43:58 -> 44:58 -> 45:59 -> 46:60 -> 47:61 -> 47:62 -> 48:63 -> 48:64 -> 48:65 -> 48:66 -> 48:67 -> 48:68 -> 48:69 -> 48:70 -> 48:71 -> 48:72 -> 48:73 -> 48:74 -> 48:75 -> 48:76 -> 48:77 -> 48:78 -> 48:79 -> 48:80 -> 48:81 -> 48:82 -> 48:83 -> 48:84 -> 48:85 -> 48:86 -> 48:87 -> 48:88 -> 48:89 -> 48:90 -> 48:91 -> 48:92 -> 48:93 -> 48:94 -> 48:95 -> 48:96 -> 48:97 -> 48:98 -> 48:99 -> 48:100 -> 48:101 -> 48:102 -> 48:103 -> 48:104 -> 48:105 -> 49:106 -> 50:107 -> 51:108 -> 52:109 -> 53:110 -> 54:111 -> 55:112 -> 56:113 -> 57:114 -> 58:115 -> 59:116 -> 60:116 -> 61:116 -> 62:116 -> 63:117 -> 64:118 -> 65:119 -> 66:120 -> 67:121 -> 68:122 -> 69:123 -> 70:124 -> 71:125 -> 72:126 -> 73:127 -> 74:128 -> 75:129 -> 76:130 -> 77:131 -> 78:132 -> 79:133 -> 80:134 -> 81:135 -> 82:136 -> 83:137 -> 84:138 -> 85:139 -> 86:140 -> 87:141 -> 88:142 -> 89:143 -> 90:144 -> 91:145 -> 92:146 -> 93:147 -> 94:148 -> 95:149 -> 96:150 -> 97:151 -> 98:152 -> 99:153 -> 100:154 -> 101:155 -> 102:156 -> 103:157 -> 104:157 -> 105:157 -> 106:157 -> 107:157 -> 108:157 -> 109:157 -> 110:157 -> 111:157 -> 112:157 -> 113:157 -> 114:157 -> 115:157 -> 116:157 -> 117:157 -> 118:158 -> 119:159 -> 120:160 -> 121:161 -> 122:162 -> 123:162 -> 124:162 -> 125:163 -> 126:164 -> 127:165 -> 128:165 -> 129:166 -> 130:167 -> 131:168 -> 132:169 -> 133:170 -> 134:171 -> 135:172 -> 136:172 -> 137:172 -> 138:172 -> 139:172 -> 140:172 -> 141:172 -> 142:172 -> 143:172 -> 144:172 -> 145:172 -> 146:172 -> 147:172 -> 148:172 -> 149:172 -> 150:172 -> 151:172 -> 152:172 -> 153:172 -> 154:172 -> 155:172 -> 156:172 -> 157:172 -> 158:171 -> 159:170 -> 160:170 -> 161:171 -> 162:172 -> 162:173 -> 162:174 -> 162:175 -> 161:176 -> 160:177 -> 159:178 -> 158:179 -> 157:180 -> 156:181 -> 155:182 -> 154:183 -> 153:184 -> 152:185 -> 151:186 -> 150:187 -> 149:188 -> 148:189 -> 147:190 -> 146:191 -> 145:192 -> 145:193 -> 145:194 -> 145:195 -> 145:196 -> 144:197 -> 143:198 -> 142:199 -> 141:200 -> 140:201 -> 139:202 -> 138:203 -> 137:204 -> 136:205 -> 135:206 -> 134:207 -> 133:208 -> 132:209 -> 131:210 -> 130:211
+
+$ java RunPathFinder dijkstra WordLadder graphs/WordLadder/words-saldo.txt syster broder
+
+visited nodes: 13626
+minimal cost:  11
+shortest path: syster -> byster -> bysten -> basten -> basken -> banken -> banden -> bauden -> bruden -> bröden -> bröder -> broder
+
+
+$ java RunPathFinder astar WordLadder graphs/WordLadder/words-saldo.txt syster broder
+
+visited nodes: 1961
+minimal cost:  11
+shortest path: syster -> sylter -> salter -> balter -> balder -> barder -> barden -> bauden -> bruden -> bräden -> bräder -> broder
+
+
+/******************************************************************************
+ *  For which of the three classes GridGraph, WordLadder and NPuzzle,
+ *  did the heuristics .guessCost() have the most impact?
+ * 
+ *  Why do you think this is the case?
+ *****************************************************************************/
+
+It had the most inpact on NPuzzle. We believe that heuristics are more valuable for more 
+complex problems. We imagine that both word ladder and grid graph are such simple problems
+that heuristics does not have a significant inpact on the result. Allthough, NPuzzle is a more
+complex puzzle with a lot of possible moves and paths where having a good heuristic leads to
+a more significant performance increase.
+
+
+
+/******************************************************************************
+ *  Show pseudo-code of the following methods that you implemented
+ *****************************************************************************/
+
+// WordLadder.outgoingEdges(String word)
+
+    loop through every character in the word
+        for each character in the charset
+            replace the character in the word for the character in the charset
+            if the new word is in the dictionary and it is not the same word as the start word
+                add it to the output list
+    
+    return the output list
+
+
+// WordLadder.guessCost(String v, String w)
+
+for each character in the strings
+    compare the characters in both strings
+        if they are not equals
+            increase a counter
+
+return the counter
+
+
+// GridGraph.guessCost(String v, String w) (should be Coord?)
+
+calculate delta x and delta y. 
+square both separately and add them together 
+return the square root of the sum
+
+
+/******************************************************************************
+ *  Show pseudo-code of method .searchDijkstra() in PathFinder
+ *****************************************************************************/
+
+// PathFinder.searchDijkstra(V start, V goal)
+
+edgeTo = new empty hash map from nodes to edges
+distTo = new empty hash map from nodes to double
+queue = new priority queue, with nodes as elements, 
+            and a comparator that compares distTo values
+visited = new empty set of nodes
+visitedNodes = 0, integer that counts the number of visited nodes
+
+add start to queue
+distTo[start] = 0.0
+while queue is not empty:
+    v = delete minimal element from queue
+    if v not in visited:
+        add v to visited
+        increment visitedNodes
+        if v is the goal:
+            return SUCCESS: calculate the path and return it
+        for every outgoing edge e from v:
+            w = e.to()
+            newdist = distTo[v] + e.weight()
+            if distTo[w] > newdist:
+                distTo[w] = newdist
+                edgeTo[w] = e
+                add w to queue
+return FAILURE
+
+
+/******************************************************************************
+ *  What are the main differences between your implementations 
+ *  of .searchAstar() and .searchDijkstra()?
+ *****************************************************************************/
+
+We use a different comparator for the priority queue. This comparator takes heuristics
+into account. 
+
+
+/******************************************************************************
+ *  Are there any known bugs / limitations?
+ *****************************************************************************/
+
+Not to our knowledge
+
+
+/******************************************************************************
+ *  Did you collaborate with any other students on this lab?
+ *  If so, please write in what way you collaborated and with whom.
+ *  Also include any resources (including the web) that you may
+ *  may have used in creating your design.
+ *****************************************************************************/
+
+We used wikipedia for our first implementation of A*. We then compared our A* version
+and results with Group temp. Then we improved our A* implementation as their results
+were closer to the ones listed on the lab description. 
+
+
+/******************************************************************************
+ *  Describe any serious problems you encountered.                    
+ *****************************************************************************/
+
+We had no serious problems.
+
+
+/******************************************************************************
+ *  List any other comments here. Feel free to provide any feedback   
+ *  on how much you learned from doing the assignment, and whether    
+ *  you enjoyed doing it.                                             
+ *****************************************************************************/
+
+
+We have no comments.
+  
