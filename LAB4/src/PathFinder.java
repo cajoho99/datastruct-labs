@@ -120,13 +120,13 @@ public class PathFinder<V> {
 
                     for (V current = v; edgeTo.get(current) != null; current = edgeTo.get(current).from()) {
                         s.push(current);
-
                     }
                     s.push(start);
 
                     List<V> path = new ArrayList<>();
 
-                    for (V current = s.pop(); !s.empty(); current = s.pop()) {
+                    for (V current; !s.empty(); ) {
+                        current = s.pop();
                         path.add(current);
                     }
 
